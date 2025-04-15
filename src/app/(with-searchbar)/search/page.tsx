@@ -30,19 +30,34 @@ async function SearchResult({ q }: { q: string }) {
   );
 }
 
-export default function Page({
+// 현재 이 코드가 문제가 되는 이유 정리
+// export default function Page({
+//   searchParams,
+// }: {
+//   searchParams: {
+//     q?: string;
+//   };
+// }) {
+//   return (
+//     <Suspense
+//       key={searchParams.q || ""}
+//       fallback={<BookListSkeleton count={3} />}
+//     >
+//       <SearchResult q={searchParams.q || ""} />
+//     </Suspense>
+//   );
+// }
+
+export default async function Page({
   searchParams,
 }: {
-  searchParams: {
-    q?: string;
-  };
+  searchParams: Promise<{ q?: string }>; //
 }) {
+  const params = await searchParams;
+
   return (
-    <Suspense
-      key={searchParams.q || ""}
-      fallback={<BookListSkeleton count={3} />}
-    >
-      <SearchResult q={searchParams.q || ""} />
+    <Suspense key={params.q || ""} fallback={<BookListSkeleton count={3} />}>
+      <SearchResult q={params.q || ""} />
     </Suspense>
   );
 }
