@@ -19,7 +19,7 @@ export default function Error({
 
   return (
     <div>
-      <h3>오류가 발생했습니다!!!</h3>
+      <h3>검색과정에서 오류가 발생했습니다!!!</h3>
       <button
         onClick={
           () => {
